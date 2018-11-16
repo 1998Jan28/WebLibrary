@@ -8,36 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>注册</title>
+    <title>Title</title>
 </head>
 <body>
-<div>
-    <div>
-        <h1>用户注册</h1>
-    </div>
-    <div>
-        <form>
-            <div>
-                姓名<input type="text">
-            </div>
-            <div>
-                密码<input type="password">
-            </div>
-            <div>
-                确认密码<input type="password">
-            </div>
-            <div>
-                身份证号<input type="text">
-            </div>
-            <div>
-                手机号<input type="text">
-            </div>
-            <div>
-                <input type="submit" value="提交">
-                <button >返回</button>
-            </div>
-        </form>
-    </div>
-</div>
+
 </body>
 </html>
