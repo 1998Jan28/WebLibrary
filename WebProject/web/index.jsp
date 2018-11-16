@@ -11,6 +11,18 @@
     <title>登陆系统</title>
   </head>
   <body>
-  $END$
+    <h1>图书管理系统</h1>
+    <form>
+        <div>
+            <span>账号 </span>
+            <input type="text" id="userno" />
+            <span>密码  </span>
+            <input type="text" id="pwd" />
+        </div>
+        <div>
+            <input type="submit" value="登陆" />
+            <a href="./register.jsp">注册</a>
+        </div>
+    </form>
   </body>
 </html>
