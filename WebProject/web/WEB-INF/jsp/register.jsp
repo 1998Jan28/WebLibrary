@@ -18,16 +18,16 @@
     <div>
         <form>
             <div>
-                用户名<input type="text">
+                <span>用户名</span><input type="text">
             </div>
             <div>
-                密码<input type="password">
+                <span>密码</span><input type="password">
             </div>
             <div>
-                身份证号码<input type="text">
+                <span>身份证号码</span><input type="text">
             </div>
             <div>
-                手机号码<input type="text">
+                <span>手机号码</span><input type="text">
             </div>
             <div>
                 <input type="submit" value="提交">
