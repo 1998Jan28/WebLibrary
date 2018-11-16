@@ -15,10 +15,46 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <script>
+        function check(){
+            var username = document.getElementById("reg_username").value;
+            var password = document.getElementById("reg_password").value;
+            var cfmpassword = document.getElementById("reg_cfmpassword").value;
+            var identi = document.getElementById("reg_identi").value;
+            var tel = document.getElementById("reg_tel").value;
+
+            if(username==null || username==""){
+                document.getElementById("notify").innerHTML = "姓名不能为空";
+                return false;
+            }
+            if(password==null || password==""){
+                document.getElementById("notify").innerHTML = "密码不能为空";
+                return false;
+            }
+            if(cfmpassword==null || cfmpassword==""){
+                document.getElementById("notify").innerHTML = "确认密码不能为空";
+                return false;
+            }
+            if(identi==null || identi==""){
+                document.getElementById("notify").innerHTML = "身份证号码不能为空";
+                return false;
+            }
+            if(tel==null || tel==""){
+                document.getElementById("notify").innerHTML = "手机号码不能为空";
+                return false;
+            }
+            if(password != cfmpassword){
+                document.getElementById("notify").innerHTML = "两次密码输入不一致";
+                return false;
+            }
+            return true;
+        }
+    </script>
+
     <style>
         body{background: url(./img/loginBG.jpg)no-repeat;background-size:cover;font-size: 16px;}
         form{
-            background-color: rgba(255,255,255,0.4);
+            background-color: rgba(255,255,255,0.9);
             padding:20px;
             padding-left: 40px;
             padding-right:40px;
@@ -29,8 +65,9 @@
 <body>
 <div>
     <div class="container" style="margin-top:200px;margin-left: -30px;">
-        <form class="col-sm-offset-4col-sm-4 col-sm-offset-4 form form-horizontal" action="#" method="post">
+        <form class="col-sm-offset-4col-sm-4 col-sm-offset-4 form form-horizontal" action="#" method="post" onsubmit="return check()">
             <h3 class="text-center">用户注册</h3>
+            <p id = "notify" style="color: red;margin-left:120px;"></p>
             <div class="form-group">
                 <label class="col-sm-2 control-label">姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                 <div class="col-sm-10">
@@ -63,7 +100,7 @@
             </div>
             <button type="submit" class="btn btn-success center-block">注&nbsp;册</button>
             <div class="text-right">
-                <a href="./index.jsp" style="color: white">返回系统</a>
+                <a href="./index.jsp">返回系统</a>
             </div>
         </form>
     </div>
