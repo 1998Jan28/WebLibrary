@@ -34,7 +34,6 @@
             {"id": 19, "name": "王五","age":"20"},
             {"id": 20, "name": "老王","age":"20"}];
         $(document).ready(function(){
-            $.post()
             var search = $("#search");
             search.keyup(function (event) {
                 var searchText = search.val();
