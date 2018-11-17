@@ -14,8 +14,13 @@
             var cardNum = document.getElementById("CardNum");
             var searchCard = document.getElementById("SearchCard");
             var searchResult = document.getElementById("SearchResult");
-            cardNum.innerText = searchCard.value + "的借阅记录";
-            searchResult.style.display = "table";
+            if(searchCard.value.trim() == ""){
+                alert("请输入卡号");
+            }
+            else{
+                cardNum.innerText = searchCard.value + "的借阅记录";
+                searchResult.style.display = "table";
+            }
         }
 
         function ReturnBook(){

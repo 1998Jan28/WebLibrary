@@ -13,7 +13,7 @@
         function Jump(index) {
             var display = document.getElementById("display");
             if(index == 1){
-                display.src = "https://www.baidu.com";
+                display.src = "./userManage.jsp";
             }
             else if(index == 2){
                 display.src = "https://passport.weibo.com";
