@@ -46,7 +46,7 @@
   </head>
   <body>
     <div class="container" style="margin-top:200px;margin-left: -30px;">
-        <form class="col-sm-offset-4col-sm-4 col-sm-offset-4 form form-horizontal" action="#" method="post" onsubmit="return check()">
+        <form class="col-sm-offset-4col-sm-4 col-sm-offset-4 form form-horizontal" action="administrator.jsp" method="post" onsubmit="return check()">
             <h3 class="text-center">用户登陆</h3>
             <p id = "notify" style="color: red;margin-left:120px;"></p>
             <div class="form-group">
