@@ -16,7 +16,7 @@
                 display.src = "./userManage.jsp";
             }
             else if(index == 2){
-                display.src = "https://passport.weibo.com";
+                display.src = "./bookManage.jsp";
             }
             else if(index == 3){
                 display.src = "./BookReturn.jsp";
