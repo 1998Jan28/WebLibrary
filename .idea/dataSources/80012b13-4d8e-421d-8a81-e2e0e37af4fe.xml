@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Library@39.108.92.145">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.7">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
     <root id="1">
+      <ServerVersion>5.6.36</ServerVersion>
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <DefaultCasing>exact</DefaultCasing>
     </root>
     <schema id="2" parent="1" name="Library">
@@ -888,20 +891,232 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="223" parent="2" name="test">
-      <Engine>InnoDB</Engine>
-    </table>
-    <column id="224" parent="223" name="id">
+    <table id="223" parent="2" name="Administrator"/>
+    <table id="224" parent="2" name="Book"/>
+    <table id="225" parent="2" name="BorrowAndReturn"/>
+    <table id="226" parent="2" name="Pay"/>
+    <table id="227" parent="2" name="User"/>
+    <column id="228" parent="223" name="AdminNum">
       <Position>1</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(8)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="225" parent="223" name="t">
+    <column id="229" parent="223" name="Pwd">
       <Position>2</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
+    <column id="230" parent="223" name="AdminName">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="231" parent="223" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>AdminNum</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="232" parent="224" name="BookName">
+      <Position>1</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="233" parent="224" name="ISBN">
+      <Position>2</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="234" parent="224" name="Author">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="235" parent="224" name="Digest">
+      <Position>4</Position>
+      <DataType>varchar(200)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="236" parent="224" name="Price">
+      <Position>5</Position>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="237" parent="224" name="Amount">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="238" parent="224" name="Index">
+      <Position>7</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="239" parent="224" name="Book_Index_uindex">
+      <ColNames>Index</ColNames>
+      <Unique>1</Unique>
+      <Type>btree</Type>
+    </index>
+    <key id="240" parent="224" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ISBN</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="241" parent="224" name="Book_Index_uindex">
+      <ColNames>Index</ColNames>
+      <UnderlyingIndexName>Book_Index_uindex</UnderlyingIndexName>
+    </key>
+    <column id="242" parent="225" name="Id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="243" parent="225" name="Index">
+      <Position>2</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="244" parent="225" name="BorrowTime">
+      <Position>3</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="245" parent="225" name="ReturnTime">
+      <Position>4</Position>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="246" parent="225" name="CardNum">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="247" parent="225" name="table_name_Book_Index_fk">
+      <ColNames>Index</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="248" parent="225" name="table_name_User_CardNum_fk">
+      <ColNames>CardNum</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="249" parent="225" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="250" parent="225" name="table_name_Book_Index_fk">
+      <ColNames>Index</ColNames>
+      <RefSchemaName>Library</RefSchemaName>
+      <RefTableName>Book</RefTableName>
+      <RefColNames>Index</RefColNames>
+    </foreign-key>
+    <foreign-key id="251" parent="225" name="table_name_User_CardNum_fk">
+      <ColNames>CardNum</ColNames>
+      <RefSchemaName>Library</RefSchemaName>
+      <RefTableName>User</RefTableName>
+      <RefColNames>CardNum</RefColNames>
+    </foreign-key>
+    <column id="252" parent="226" name="Id">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="253" parent="226" name="CardNum">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="254" parent="226" name="Index">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="255" parent="226" name="Money">
+      <Position>4</Position>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="256" parent="226" name="PayTime">
+      <Position>5</Position>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="257" parent="226" name="Pay_User_CardNum_fk">
+      <ColNames>CardNum</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="258" parent="226" name="Pay_Book_Index_fk">
+      <ColNames>Index</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="259" parent="226" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="260" parent="226" name="Pay_User_CardNum_fk">
+      <ColNames>CardNum</ColNames>
+      <RefSchemaName>Library</RefSchemaName>
+      <RefTableName>User</RefTableName>
+      <RefColNames>CardNum</RefColNames>
+    </foreign-key>
+    <foreign-key id="261" parent="226" name="Pay_Book_Index_fk">
+      <ColNames>Index</ColNames>
+      <RefSchemaName>Library</RefSchemaName>
+      <RefTableName>Book</RefTableName>
+      <RefColNames>Index</RefColNames>
+    </foreign-key>
+    <column id="262" parent="227" name="CardNum">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="263" parent="227" name="Pwd">
+      <Position>2</Position>
+      <DataType>varchar(35)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="264" parent="227" name="Name">
+      <Position>3</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="265" parent="227" name="Identification">
+      <Position>4</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="266" parent="227" name="Tele">
+      <Position>5</Position>
+      <DataType>varchar(15)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="267" parent="227" name="Money">
+      <Position>6</Position>
+      <DataType>double|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="268" parent="227" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CardNum</ColNames>
+      <Primary>1</Primary>
+    </key>
   </database-model>
 </dataSource>
