@@ -37,17 +37,18 @@
             var search = $("#search");
             search.keyup(function (event) {
                 var searchText = search.val();
-                var table = "<table><tr><td>姓名</td><td>年龄</td></tr>"
+                var table = "<center><table><tr><td>姓名</td><td>年龄</td></tr>"
                 if(searchText != ""){
                     $.each(user,function(id,item){
                         if(item.name.indexOf(searchText)!=-1){
                             table += "<tr><td>"+ item.name +"</td><td>+ item.age +</td></tr>"
                         }
                     })
-                    table += "</table>"
+                    table += "</table></center>"
                     $("#showbooks").html(table);
                 }else{
-                    $("#showbooks").html("");
+                    var tip = "<center>请输入您需要的书籍</center>";
+                    $("#showbooks").html(tip);
                 }
             })
         });
@@ -86,21 +87,47 @@
         }
     </script>
 
+    <style>
+        .seainput{
+            width: 480px;
+            height:38px;
+            font-size: 16px;
+            border:1px solid #b8b8b8;
+            border-bottom: 1px solid #ccc;
+            border-right: 0;
+            padding:0;
+            margin:0;
+        }
+        .seabtn{
+            cursor: pointer;
+            width:102px;
+            height:38px;
+            line-height: 38px;
+            padding:0;
+            border:0;
+            background-color: #38f;
+            font-size:16px;
+            color:white;
+            margin-left: -4px;
+        }
+    </style>
     <title>图书系统</title>
 </head>
 <body>
-    <div>
-        您好!<span id="username">whut </span>|
-        <a href="./index.jsp">注销</a>
+    <%@include file="head.jsp" %>
+    <div style="display: inline-block;margin-top:-20px;z-index: 9999;position: absolute;margin-left: 1350px;">
+        <span style="color: white">您好!<span id="username">whut </span>&nbsp;|&nbsp;</span>
+        <a href="./index.jsp" style="color: white;text-decoration: none;">注销</a>
     </div>
-    <div>
+    <div style="text-align: center;margin-top: 100px;">
         <form>
-            <span><input id="search" type="text" maxlength="100" /></span>
-            <span><input type="submit" value="搜索" /></span>
+            <input id="search" class="seainput" type="text" maxlength="100" />
+            <input id="searchbtn" class="seabtn" type="submit" value="搜索图书" />
         </form>
     </div>
-    <div id="showbooks">
+    <div id="showbooks" style="height: 300px;text-align: center">
 
     </div>
+    <%@include file="footer.jsp"%>
 </body>
 </html>
