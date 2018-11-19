@@ -3,12 +3,12 @@ package Database;
 import java.sql.*;
 
 public class DB {
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://39.108.92.145:3306/Library";
-    static final String ACCOUNT = "?user=whut&password=whut@web";
-    static final String CHARACTER = "&useUnicode=true&characterEncoding=UTF-8";
-    static final String URL = DB_URL + ACCOUNT + CHARACTER;
-    private Connection connection = null;
+    final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    final String DB_URL = "jdbc:mysql://39.108.92.145:3306/Library";
+    final String ACCOUNT = "?user=whut&password=whut@web";
+    final String CHARACTER = "&useUnicode=true&characterEncoding=UTF-8";
+    final String URL = DB_URL + ACCOUNT + CHARACTER;
+    Connection connection = null;
     private Statement state = null;
 
     public boolean Connection(){//连接数据库
@@ -35,7 +35,7 @@ public class DB {
         }
     }
 
-    public boolean Excute(String sql){//执行sql
+    public boolean Query(String sql){//执行查询
         ResultSet result = null;
         try{
             result = state.executeQuery(sql);
@@ -58,6 +58,19 @@ public class DB {
             finally {
                 return true;
             }
+        }
+    }
+
+    public boolean Excute(String sql){//执行插入、删除、修改
+        boolean result = false;
+        try{
+            result = state.execute(sql);
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally {
+            return result;
         }
     }
 

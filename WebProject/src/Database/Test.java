@@ -5,7 +5,7 @@ public class Test {
         DB db = new DB();
         db.Connection();
         db.Statement();
-        db.Excute("select * from Book");
+        db.Query("select * from Book");
         db.CloseStatement();
         db.CloseConnection();
     }
