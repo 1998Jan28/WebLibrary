@@ -68,16 +68,23 @@
         <form class="col-sm-offset-4col-sm-4 col-sm-offset-4 form form-horizontal" action="Register" method="post" onsubmit="return check()">
             <h3 class="text-center">用户注册</h3>
             <p id = "notify" style="color: red;margin-left:120px;"></p>
+            <%
+                request.setCharacterEncoding("UTF-8");
+                String cardNum = (String)request.getAttribute("cardNum");
+                if( cardNum != null){
+                    out.print("<h3>注册成功！您的卡号为：" + cardNum + "</h3>");
+                }
+            %>
             <div class="form-group">
                 <label class="col-sm-2 control-label">姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control"  id="reg_username" placeholder="请输入您的姓名" />
+                    <input type="text" class="form-control"  id="reg_username" name="reg_username" placeholder="请输入您的姓名" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="reg_password" placeholder="请输入您的密码" />
+                    <input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="请输入您的密码" />
                 </div>
             </div>
             <div class="form-group">
@@ -89,13 +96,13 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">身&nbsp;份&nbsp;证</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="reg_identi" placeholder="请输入您的身份证号码" />
+                    <input type="text" class="form-control" id="reg_identi" name="reg_identi" placeholder="请输入您的身份证号码" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">手&nbsp;&nbsp;&nbsp;&nbsp;机</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="reg_tel" placeholder="请输入您的手机号码" />
+                    <input type="text" class="form-control" id="reg_tel" name="reg_tel" placeholder="请输入您的手机号码" />
                 </div>
             </div>
             <button type="submit" class="btn btn-success center-block">注&nbsp;册</button>

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import Database.DB;
+import Service.RegisterService;
 
 @WebServlet(name = "RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -17,7 +17,10 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("reg_password");
         String identification = request.getParameter("reg_identi");
         String tele = request.getParameter("reg_tel");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        RegisterService rs = new RegisterService();
+        String cardNum = rs.Register(password, username, identification, tele);
+        request.setAttribute("cardNum", cardNum);
+        request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
