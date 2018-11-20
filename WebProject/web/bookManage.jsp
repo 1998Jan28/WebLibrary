@@ -40,31 +40,22 @@
                     "Amount":$("#Amount").val(),
                     "Price":$("#Price").val(),
                     "Author":$("#Author").val(),
+                    "Cover":$("#Cover").val()
                 }
                 console.log(2);
-                $.post("/BookAdd",paras,function(data){
+                $.post("/BookAdd",paras,function (data) {
                     console.log(1);
-                    var flag=data["flag"];
-                    if(flag==1){
+                    var flag;
+                    $.each(data, function (item) {
+                        flag = data[item];
+                    })
+                    if(flag == 1){
                         alert("添加成功！");
-                    }else{
+                    }
+                    else{
                         alert("添加失败！");
                     }
                 },"json")
-                // $.post("/BookAdd",paras,function (data) {
-                //     console.log(1);
-                //     var flag;
-                //     alert("success");
-                //     $.each(data, function (item) {
-                //         flag = data[item];
-                //     })
-                //     if(flag == 1){
-                //         alert("添加成功！");
-                //     }
-                //     else{
-                //         alert("添加失败！");
-                //     }
-                // },"json")
             });
         });
     </script>
@@ -91,13 +82,13 @@
 <div id="addBookForm" style="display: none">
     <form>
         书名：<input type="text" id="BookName" maxlength="30"><br/>
-        ISBN:<input type="text" id="ISBN" maxlength="13"><br/>
+        ISBN:<input type="number" id="ISBN" maxlength="13"><br/>
         作者：<input type="text" id="Author" maxlength="20"><br/>
-        售价：<input type="text" step="0.01" id="Price" min="0"><br/>
-        数量：<input type="text" id="Amount" min="1"><br/>
+        售价：<input type="number" step="0.01" id="Price" min="0"><br/>
+        数量：<input type="number" id="Amount" min="1"><br/>
         索书号：<input type="text" id="Index"><br/>
         内容简介：<input type="text" id="Digest" size="8" maxlength="200"><br/>
-        图书封面：<input type="file" name="bookImage" /><br/>
+        图书封面：<input type="file" id="Cover" accept="image/jpeg"><br/>
         <input type="button" value="添加" id="submit" />
     </form>
 </div>
