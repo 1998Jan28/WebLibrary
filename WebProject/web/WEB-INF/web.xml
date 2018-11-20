@@ -54,4 +54,13 @@
         <servlet-name>BookAdd</servlet-name>
         <url-pattern>/BookAdd</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>uploadFileServlet</servlet-name>
+        <servlet-class>Servlet.uploadFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadFileServlet</servlet-name>
+        <url-pattern>/uploadFile</url-pattern>
+    </servlet-mapping>
 </web-app>

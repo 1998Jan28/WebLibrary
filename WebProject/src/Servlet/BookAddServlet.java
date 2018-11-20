@@ -5,12 +5,12 @@ import Service.BookAddService;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 @WebServlet(name = "BookAddServlet")
 public class BookAddServlet extends HttpServlet {
@@ -39,6 +39,7 @@ public class BookAddServlet extends HttpServlet {
         else{
             flag.put("flag", 0);
         }
+
         System.out.println("Servlet:"+ flag);
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();

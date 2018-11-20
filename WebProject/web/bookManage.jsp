@@ -97,6 +97,7 @@
         数量：<input type="text" id="Amount" min="1"><br/>
         索书号：<input type="text" id="Index"><br/>
         内容简介：<input type="text" id="Digest" size="8" maxlength="200"><br/>
+        图书封面：<input type="file" name="bookImage" /><br/>
         <input type="button" value="添加" id="submit" />
     </form>
 </div>
