@@ -3,6 +3,8 @@ package Database;
 import POJO.Return;
 
 import java.sql.*;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ReturnDB {
@@ -21,20 +23,27 @@ public class ReturnDB {
         }
     }
 
-    public JSONObject Query(String cardNum){
-        JSONObject object = new JSONObject();
+    public JSONArray Query(String cardNum){
+        JSONArray list = new JSONArray();
         try{
             result = null;
-            statement = connection.prepareStatement("select * from BorrowAndReturn where CardNum=? and ReturnTime=null");
+            statement = connection.prepareStatement("select BookName, BorrowTime, Book.Index from BorrowAndReturn, Book where CardNum=? and ReturnTime is null and Book.Index=BorrowAndReturn.Index");
             statement.setString(1,cardNum);
             result = statement.executeQuery();
+            while(result.next()){
+                JSONObject temp = new JSONObject();
+                temp.put("BorrowTime", result.getString("BorrowTime"));
+                temp.put("Index", result.getString("Index"));
+                temp.put("BookName", result.getString("BookName"));
+                list.put(temp);
+            }
         }
         catch (SQLException se){
             se.printStackTrace();
         }
         finally {
-
-            return object;
+            Close();
+            return list;
         }
     }
 

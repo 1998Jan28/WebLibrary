@@ -20,6 +20,14 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>BookReturnServlet</servlet-name>
+        <servlet-class>Servlet.BookReturnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookReturnServlet</servlet-name>
+        <url-pattern>/BookReturn</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>UserSearchBooksServlet</servlet-name>

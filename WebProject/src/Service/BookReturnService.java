@@ -1,18 +1,15 @@
 package Service;
 
-import POJO.Return;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 import Database.ReturnDB;
+import org.json.JSONArray;
 
 public class BookReturnService {
 
-    public List<Return> GetBook(String cardNum){
-        List<Return> result = null;
-
-        return result;
+    public JSONArray GetRecord(String cardNum){
+        JSONArray list = null;
+        ReturnDB db = new ReturnDB();
+        db.Connection();
+        list = db.Query(cardNum);
+        return list;
     }
 }
