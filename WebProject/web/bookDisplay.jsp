@@ -12,7 +12,7 @@
     <img src="./img/pfdsj.jpg" height="100px" width="100px">
 </div>
 <div id="information" style="position: relative;top:0px;left:201px;height:100px;font-size: larger">
-    <lable>书名</lable>
+    <lable>书名</lable><%=request.getParameter("ISBN")%>
     <lable>作者</lable>
     <lable>馆存</lable>
     <label>可用</label>

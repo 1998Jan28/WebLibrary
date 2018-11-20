@@ -10,17 +10,24 @@
 <html>
 <head>
     <title>图书归还</title>
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
-            $("#search").submit(
-                function () {
+            $("#search").click(function () {
                     $.post("/BookReturn",{"SearchCard":$("#SearchCard").val()},function(data){
-                        alert(data);
-                        $("#SearchResult").style.display = "block";
-                        $("#test").innerHTML = data;
-                        $("#dis").innerHTML = data;
-                    })
+                        console.log(1);
+                        //alert(data);
+                        var record=data;
+                        var content="<caption id=\"CardNum\">"+$("#SearchCard").val()+"的借书记录</caption>"
+                        content+="<tr><th>索书号</th><th>图书名</th><th>借阅时间</th><th></th></tr>";
+                        document.getElementById("SearchResult").style.display="block";
+                        $.each(record,function(id,item){
+                            content+="<tr><td>"+item.Index+"</td><td>"+item.BookName+"</td><td>"+item.BorrowTime+"</td></tr>";
+                        })
+                        $("#SearchResult").html(content);
+                    },"json")
                 }
             );
         })
@@ -48,22 +55,15 @@
 <body>
 <div>
     <div>
-        <form method="post" id="search">
+        <form method="post">
             <span>卡号</span><input id= "SearchCard" name="SearchCard" type="text">
-            <input type="submit"  value="提交"></input>
+            <input type="button" id="search" value="提交" />
         </form>
     </div>
     <div id="dis"></div>
     <div>
         <table id="SearchResult" style="display: none">
-            <caption id="CardNum"></caption>
-            <tr>
-                <th>索书号</th>
-                <th>图书名</th>
-                <th>借阅时间</th>
-                <th></th>
-            </tr>
-            <td id="test"></td>
+
             <%--<%--%>
                 <%--JSONArray list = (JSONArray)request.getAttribute("records");--%>
                 <%--if(list != null){--%>

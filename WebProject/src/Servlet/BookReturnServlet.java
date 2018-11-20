@@ -19,11 +19,13 @@ public class BookReturnServlet extends HttpServlet {
         String cardNum = request.getParameter("SearchCard");
         response.setHeader("content-type", "text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        System.out.println( brs.GetRecord(cardNum).toString());
         out.write( brs.GetRecord(cardNum).toString());
+        out.close();
         //request.getRequestDispatcher("BookReturn.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request,response);
     }
 }

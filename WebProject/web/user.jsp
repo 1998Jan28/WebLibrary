@@ -54,8 +54,8 @@
                         // table += "<tr><td>"+ item.BookName +"</td><td>"+ item.Author +"</td><td>"
                         //     + item.ISBN+"</td><td>"+ item.Price +"</td></tr>"
                         content+="<div>";
-                        content+="<img src='./img/pfdsj.jpg' />"
-                        content+="<span>书名:"+item.BookName+"</span>";
+                        content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><img src='./img/pfdsj.jpg' /></a>"
+                        content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><span>书名:"+item.BookName+"</span></a>";
                         content+="<span>作者:"+item.Author+"</span>";
                         content+="<span>ISBN:"+item.ISBN+"</span>";
                         content+="<span>价格:"+item.Price+"</span>";
