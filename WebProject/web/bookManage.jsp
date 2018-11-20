@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>bookmanage</title>
+    <title>图书管理</title>
     <style type="text/css">
         ul {
             overflow: hidden;
@@ -25,6 +25,40 @@
         }
 
     </style>
+    <%--<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>--%>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                var paras = {
+                    "BookName":$("#BookName").val(),
+                    "Digest":$("#Digest").val(),
+                    "Index":$("#Index").val(),
+                    "ISBN":$("#ISBN").val(),
+                    "Amount":$("#Amount").val(),
+                    "Price":$("#Price").val(),
+                    "Author":$("#Author").val(),
+                }
+                console.log(2);
+                $.post("/BookAdd",paras,function (data) {
+                    console.log(1);
+                    var flag;
+                    alert("success");
+                    $.each(data, function (item) {
+                        flag = data[item];
+                    })
+                    if(flag == 1){
+                        alert("添加成功！");
+                    }
+                    else{
+                        alert("添加失败！");
+                    }
+                },"json")
+            });
+        });
+    </script>
     <script language="JavaScript">
         function addBook() {
             document.getElementById("addBookForm").style.display="block";
@@ -46,15 +80,15 @@
     </ul>
 </div>
 <div id="addBookForm" style="display: none">
-    <form action="增加" >
-        书名：<input type="text" name="Bookname" maxlength="30"><br/>
-        ISBN:<input type="number" name="ISBN" maxlength="13"><br/>
-        作者：<input type="text" name="Author" maxlength="20"><br/>
-        售价：<input type="number" name="Price" min="0"><br/>
-        数量：<input type="number" name="Amount" min="1"><br/>
-        索书号：<input type="text" name="Index" maxlength="20"><br/>
-        内容简介：<input type="text" name="Digest" size="8" maxlength="80"><br/>
-        <input type="submit" value="提交">
+    <form>
+        书名：<input type="text" id="BookName" maxlength="30"><br/>
+        ISBN:<input type="number" id="ISBN" maxlength="13"><br/>
+        作者：<input type="text" id="Author" maxlength="20"><br/>
+        售价：<input type="number" step="0.01" id="Price" min="0"><br/>
+        数量：<input type="number" id="Amount" min="1"><br/>
+        索书号：<input type="text" id="Index"><br/>
+        内容简介：<input type="text" id="Digest" size="8" maxlength="200"><br/>
+        <button id="submit">添加</button>
     </form>
 </div>
 <div style="width: 500px">

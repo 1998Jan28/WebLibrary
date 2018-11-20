@@ -1,10 +1,12 @@
 package Database;
 
+import POJO.Book;
 import org.json.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class BookDB {
     private DB db=new DB();
@@ -35,5 +37,30 @@ public class BookDB {
         db.free(rs,pstmt,con);
 
         return res;
+    }
+
+    public boolean AddBook(Book book) {
+        boolean flag = false;
+        try{
+            con = db.getConnection();
+            String sql = "insert into Book(BookName, ISBN, Author, Digest, Price, Amount, `Index`)";
+            sql += " values(?,?,?,?,?,?,?)";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, book.getBookName());
+            pstmt.setString(2, book.getISBN());
+            pstmt.setString(3, book.getAuthor());
+            pstmt.setString(4, book.getDigest());
+            pstmt.setDouble(5, book.getPrice());
+            pstmt.setInt(6, book.getAmount());
+            pstmt.setString(7, book.getIndex());
+            flag = pstmt.executeUpdate()== 1 ? true : false;
+            db.free(rs, pstmt, con);
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally {
+            return flag;
+        }
     }
 }
