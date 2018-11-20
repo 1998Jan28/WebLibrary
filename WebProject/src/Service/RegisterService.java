@@ -26,8 +26,9 @@ public class RegisterService {
             ps.executeUpdate();
             result = ps.executeQuery("select CardNum from User where Identification='" + identification + "'");
             if(result != null){
-                result.next();
-                cardNum = result.getString("CardNum");
+                while(result.next()){
+                    cardNum = result.getString("CardNum");
+                }
             }
             db.free(result, ps, connection);
         }
