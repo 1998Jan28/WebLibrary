@@ -35,40 +35,61 @@
         //     {"id": 20, "name": "老王","age":"20"}];
         var booksInfo;
         var paras={};
-        $.post("/UserSearchBooks",paras,function(obj){
-            booksInfo=obj;
-            console.log(booksInfo);
-            //console.log(user);
-        },"json")
-        $(document).ready(function(){
+
+
+        function showBooks(){
             var search = $("#search");
-            var initip = "<div style='height: 300px;border: none;'><center>请输入您需要的书籍</center></div>";
-            $("#showbooks").html(initip);
-            search.keyup(function (event) {
-                var searchText = search.val();
-                // var table = "<center><table><tr><td>书名</td><td>作者</td><td>ISBN</td><td>价格</td></tr>"
-                var content ="";
-                var num=0;
-                $.each(booksInfo,function(id,item){
-                    if(item.BookName.indexOf(searchText)!=-1 || item.Author.indexOf(searchText)!=-1){
-                        // table += "<tr><td>"+ item.BookName +"</td><td>"+ item.Author +"</td><td>"
-                        //     + item.ISBN+"</td><td>"+ item.Price +"</td></tr>"
-                        content+="<div>";
-                        content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><img src='./img/pfdsj.jpg' /></a>"
-                        content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><span>书名:"+item.BookName+"</span></a>";
-                        content+="<span>作者:"+item.Author+"</span>";
-                        content+="<span>ISBN:"+item.ISBN+"</span>";
-                        content+="<span>价格:"+item.Price+"</span>";
-                        content+="</div>";
-                        num++;
-                    }
-                })
-                if(num==0){
-                    $("#showbooks").html(initip);
-                }else{
-                    $("#showbooks").html(content);
+            var initip = "<div style='height: 300px;border: none;'><center>您查找的书籍不存在</center></div>";
+            var searchText = search.val();
+            // var table = "<center><table><tr><td>书名</td><td>作者</td><td>ISBN</td><td>价格</td></tr>"
+            var content ="";
+            var num=0;
+            $.each(booksInfo,function(id,item){
+                if(item.BookName.indexOf(searchText)!=-1 || item.Author.indexOf(searchText)!=-1){
+                    // table += "<tr><td>"+ item.BookName +"</td><td>"+ item.Author +"</td><td>"
+                    //     + item.ISBN+"</td><td>"+ item.Price +"</td></tr>"
+                    content+="<div>";
+                    content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><img src='./BookImg/"+item.ISBN+".jpg' /></a>"
+                    content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><span>书名:"+item.BookName+"</span></a>";
+                    content+="<span>作者:"+item.Author+"</span>";
+                    content+="<span>ISBN:"+item.ISBN+"</span>";
+                    content+="<span>价格:"+item.Price+"</span>";
+                    content+="</div>";
+                    num++;
                 }
             })
+            if(num==0){
+                $("#showbooks").html(initip);
+            }else{
+                $("#showbooks").html(content);
+            }
+        }
+
+        function showAll(){
+            var search = $("#search");
+            var content ="";
+            $.each(booksInfo,function(id,item){
+                content+="<div>";
+                content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><img src='./BookImg/"+item.ISBN+".jpg' /></a>"
+                content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><span>书名:"+item.BookName+"</span></a>";
+                content+="<span>作者:"+item.Author+"</span>";
+                content+="<span>ISBN:"+item.ISBN+"</span>";
+                content+="<span>价格:"+item.Price+"</span>";
+                content+="</div>";
+            })
+            $("#showbooks").html(content);
+            console.log(2);
+        }
+
+        $(document).ready(function(){
+            $.ajaxSettings.async = false;
+            $.post("/UserSearchBooks",paras,function(obj){
+                booksInfo=obj;
+                console.log(booksInfo);
+                //console.log(user);
+            },"json");
+            $.ajaxSettings.async = true;
+            showBooks();
         });
 
         function jq_get(){
@@ -159,8 +180,8 @@
     </div>
     <div style="text-align: center;margin-top: 100px;">
         <form>
-            <input id="search" class="seainput" type="text" maxlength="100" />
-            <input id="searchbtn" class="seabtn" type="submit" value="搜索图书" />
+            <input id="search" class="seainput" value="" onkeyup="showBooks()" type="text" maxlength="100" />
+            <input id="searchbtn" class="seabtn" type="button" onclick="showBooks()" value="搜索图书" />
         </form>
     </div>
     <div id="showbooks" style="text-align: center;">
