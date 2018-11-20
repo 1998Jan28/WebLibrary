@@ -3,4 +3,64 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+     <servlet>
+         <servlet-name>LoginServlet</servlet-name>
+         <servlet-class>Servlet.LoginServlet</servlet-class>
+     </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginValidate</servlet-name>
+        <servlet-class>Servlet.LoginValidate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginValidate</servlet-name>
+        <url-pattern>/Validate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>BookReturnServlet</servlet-name>
+        <servlet-class>Servlet.BookReturnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookReturnServlet</servlet-name>
+        <url-pattern>/BookReturn</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UserSearchBooksServlet</servlet-name>
+        <servlet-class>Servlet.UserSearchBooksServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserSearchBooksServlet</servlet-name>
+        <url-pattern>/UserSearchBooks</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>BookAdd</servlet-name>
+        <servlet-class>Servlet.BookAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookAdd</servlet-name>
+        <url-pattern>/BookAdd</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>uploadFileServlet</servlet-name>
+        <servlet-class>Servlet.uploadFileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadFileServlet</servlet-name>
+        <url-pattern>/uploadFile</url-pattern>
+    </servlet-mapping>
 </web-app>
