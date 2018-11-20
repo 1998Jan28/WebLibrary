@@ -13,42 +13,60 @@
             crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        var user=[{"id": 1, "name": "张三","age":"25"},
-            {"id": 2, "name": "李四","age":"35"},
-            {"id": 3, "name": "王五","age":"20"},
-            {"id": 4, "name": "老王","age":"20"},
-            {"id": 5, "name": "老张","age":"25"},
-            {"id": 6, "name": "李四","age":"35"},
-            {"id": 7, "name": "王五","age":"20"},
-            {"id": 8, "name": "老王","age":"20"},
-            {"id": 9, "name": "abc","age":"25"},
-            {"id": 10, "name": "李b四","age":"35"},
-            {"id": 11, "name": "125","age":"20"},
-            {"id": 12, "name": "246","age":"20"},
-            {"id": 13, "name": "张三","age":"25"},
-            {"id": 14, "name": "李四","age":"35"},
-            {"id": 15, "name": "王五","age":"20"},
-            {"id": 16, "name": "老王","age":"20"},
-            {"id": 17, "name": "张三","age":"25"},
-            {"id": 18, "name": "李四","age":"35"},
-            {"id": 19, "name": "王五","age":"20"},
-            {"id": 20, "name": "老王","age":"20"}];
+        // var user=[{"id": 1, "name": "张三","age":"25"},
+        //     {"id": 2, "name": "李四","age":"35"},
+        //     {"id": 3, "name": "王五","age":"20"},
+        //     {"id": 4, "name": "老王","age":"20"},
+        //     {"id": 5, "name": "老张","age":"25"},
+        //     {"id": 6, "name": "李四","age":"35"},
+        //     {"id": 7, "name": "王五","age":"20"},
+        //     {"id": 8, "name": "老王","age":"20"},
+        //     {"id": 9, "name": "abc","age":"25"},
+        //     {"id": 10, "name": "李b四","age":"35"},
+        //     {"id": 11, "name": "125","age":"20"},
+        //     {"id": 12, "name": "246","age":"20"},
+        //     {"id": 13, "name": "张三","age":"25"},
+        //     {"id": 14, "name": "李四","age":"35"},
+        //     {"id": 15, "name": "王五","age":"20"},
+        //     {"id": 16, "name": "老王","age":"20"},
+        //     {"id": 17, "name": "张三","age":"25"},
+        //     {"id": 18, "name": "李四","age":"35"},
+        //     {"id": 19, "name": "王五","age":"20"},
+        //     {"id": 20, "name": "老王","age":"20"}];
+        var booksInfo;
+        var paras={};
+        $.post("/UserSearchBooks",paras,function(obj){
+            booksInfo=obj;
+            console.log(booksInfo);
+            //console.log(user);
+        },"json")
         $(document).ready(function(){
             var search = $("#search");
+            var initip = "<div style='height: 300px;border: none;'><center>请输入您需要的书籍</center></div>";
+            $("#showbooks").html(initip);
             search.keyup(function (event) {
                 var searchText = search.val();
-                var table = "<center><table><tr><td>姓名</td><td>年龄</td></tr>"
-                if(searchText != ""){
-                    $.each(user,function(id,item){
-                        if(item.name.indexOf(searchText)!=-1){
-                            table += "<tr><td>"+ item.name +"</td><td>+ item.age +</td></tr>"
-                        }
-                    })
-                    table += "</table></center>"
-                    $("#showbooks").html(table);
+                // var table = "<center><table><tr><td>书名</td><td>作者</td><td>ISBN</td><td>价格</td></tr>"
+                var content ="";
+                var num=0;
+                $.each(booksInfo,function(id,item){
+                    if(item.BookName.indexOf(searchText)!=-1 || item.Author.indexOf(searchText)!=-1){
+                        // table += "<tr><td>"+ item.BookName +"</td><td>"+ item.Author +"</td><td>"
+                        //     + item.ISBN+"</td><td>"+ item.Price +"</td></tr>"
+                        content+="<div>";
+                        content+="<img src='./img/pfdsj.jpg' />"
+                        content+="<span>书名:"+item.BookName+"</span>";
+                        content+="<span>作者:"+item.Author+"</span>";
+                        content+="<span>ISBN:"+item.ISBN+"</span>";
+                        content+="<span>价格:"+item.Price+"</span>";
+                        content+="</div>";
+                        num++;
+                    }
+                })
+                if(num==0){
+                    $("#showbooks").html(initip);
                 }else{
-                    var tip = "<center>请输入您需要的书籍</center>";
-                    $("#showbooks").html(tip);
+                    $("#showbooks").html(content);
                 }
             })
         });
@@ -110,6 +128,26 @@
             color:white;
             margin-left: -4px;
         }
+        #showbooks div{
+            text-align: left;
+            display: inline-block;
+            border: 2px solid #b8b8b8;
+            width: 1000px;
+        }
+        #showbooks div img{
+            display: inline-block;
+            margin-left: 20px;
+            padding: 10px;
+            float: left;
+            width:150px;
+            height:200px;
+        }
+        #showbooks div span{
+            display: block;
+            padding:10px;
+            margin-left: 200px;
+            wdith:300px;
+        }
     </style>
     <title>图书系统</title>
 </head>
@@ -125,7 +163,7 @@
             <input id="searchbtn" class="seabtn" type="submit" value="搜索图书" />
         </form>
     </div>
-    <div id="showbooks" style="height: 300px;text-align: center">
+    <div id="showbooks" style="text-align: center;">
 
     </div>
     <%@include file="footer.jsp"%>

@@ -21,7 +21,7 @@ public class DB {
         }
     }
 
-    public void free(ResultSet result, Statement state, Connection connection){
+    public void free(ResultSet result, PreparedStatement state, Connection connection){
         try{
             if(result != null){
                 result.close();

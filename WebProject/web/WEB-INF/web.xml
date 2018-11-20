@@ -21,4 +21,12 @@
         <url-pattern>/Register</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UserSearchBooksServlet</servlet-name>
+        <servlet-class>Servlet.UserSearchBooksServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserSearchBooksServlet</servlet-name>
+        <url-pattern>/UserSearchBooks</url-pattern>
+    </servlet-mapping>
 </web-app>
