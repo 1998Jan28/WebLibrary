@@ -52,6 +52,37 @@ public class DB {
         }
     }
 
+    public void free(ResultSet result, Statement state, Connection connection){
+        try{
+            if(result != null){
+                result.close();
+            }
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally {
+            try{
+                if(state != null){
+                    state.close();
+                }
+            }
+            catch (SQLException se){
+                se.printStackTrace();
+            }
+            finally {
+                try{
+                    if(connection != null){
+                        connection.close();
+                    }
+                }
+                catch (SQLException se){
+                    se.printStackTrace();
+                }
+            }
+        }
+    }
+
 //    public boolean Connection(){//连接数据库
 //        try{
 //            connection = DriverManager.getConnection(URL);
