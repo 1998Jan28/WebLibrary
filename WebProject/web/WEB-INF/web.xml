@@ -56,6 +56,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>BookDelete</servlet-name>
+        <servlet-class>Servlet.BookDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookDelete</servlet-name>
+        <url-pattern>/BookDelete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BookModify</servlet-name>
+        <servlet-class>Servlet.BookModifyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookModify</servlet-name>
+        <url-pattern>/BookModify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>uploadFileServlet</servlet-name>
         <servlet-class>Servlet.uploadFileServlet</servlet-class>
     </servlet>
@@ -63,4 +81,6 @@
         <servlet-name>uploadFileServlet</servlet-name>
         <url-pattern>/uploadFile</url-pattern>
     </servlet-mapping>
+
+
 </web-app>
