@@ -54,6 +54,32 @@ public class BookDB {
         return res;
     }
 
+    public JSONObject getBookByISBN(String ISBN) throws Exception{
+        JSONObject res=new JSONObject();
+        con=db.getConnection();
+
+        String sql="select * from Book where ISBN=?";
+        pstmt=con.prepareStatement(sql);
+        pstmt.setString(1,ISBN);
+        rs=pstmt.executeQuery();
+        if(rs.next()){
+            res.put("BookName",rs.getString("BookName"));
+            res.put("ISBN",rs.getString("ISBN"));
+            res.put("Author",rs.getString("Author"));
+            res.put("Digest",rs.getString("Digest"));
+            res.put("Price",rs.getDouble("Price"));
+            res.put("Amount",rs.getInt("Amount"));
+            res.put("Index",rs.getString("Index"));
+            res.put("flag","1");
+        }else{
+            res.put("flag","0");
+        }
+
+        db.free(rs,pstmt,con);
+
+        return res;
+    }
+
     public boolean AddBook(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         Book book = uploadFile(request, response);

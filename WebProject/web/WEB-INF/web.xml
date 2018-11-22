@@ -114,5 +114,14 @@
         <url-pattern>/DeleteUser</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DisplayBookServlet</servlet-name>
+        <servlet-class>Servlet.DisplayBookServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayBookServlet</servlet-name>
+        <url-pattern>/DisplayBook</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

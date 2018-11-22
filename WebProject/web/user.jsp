@@ -8,6 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
@@ -53,8 +59,10 @@
                     content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><span>书名:"+item.BookName+"</span></a>";
                     content+="<span>作者:"+item.Author+"</span>";
                     content+="<span>ISBN:"+item.ISBN+"</span>";
-                    content+="<span>价格:"+item.Price+"</span>";
-                    content+="</div>";
+                    content+="<span>索书号:"+item.Index+"</span>";
+                    content+="<span id='"+item.ISBN+"_amount'>馆藏:"+item.Amount+"</span>"
+                    // content+="<button type=\"button\" class=\"btn btn-info\" id='"+item.ISBN+"_borrow'>借阅</button>"
+                     content+="</div>";
                     num++;
                 }
             })
@@ -63,22 +71,6 @@
             }else{
                 $("#showbooks").html(content);
             }
-        }
-
-        function showAll(){
-            var search = $("#search");
-            var content ="";
-            $.each(booksInfo,function(id,item){
-                content+="<div>";
-                content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><img src='./BookImg/"+item.ISBN+".jpg' /></a>"
-                content+="<a href='bookDisplay.jsp?ISBN="+item.ISBN+"'><span>书名:"+item.BookName+"</span></a>";
-                content+="<span>作者:"+item.Author+"</span>";
-                content+="<span>ISBN:"+item.ISBN+"</span>";
-                content+="<span>价格:"+item.Price+"</span>";
-                content+="</div>";
-            })
-            $("#showbooks").html(content);
-            console.log(2);
         }
 
         $(document).ready(function(){
@@ -164,10 +156,19 @@
             height:200px;
         }
         #showbooks div span{
-            display: block;
+            display:block;
             padding:10px;
             margin-left: 200px;
-            wdith:300px;
+        }
+        #showbooks div button{
+            display:block;
+            padding:10px;
+            width: 100px;
+            margin-right:200px;
+            margin-top:-130px;
+            font-size:20px;
+            font-weight: bold;
+            float:right;
         }
     </style>
     <title>图书系统</title>
