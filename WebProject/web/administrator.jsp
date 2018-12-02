@@ -19,7 +19,7 @@
                 display.src = "./bookManage.jsp";
             }
             else if(index == 3){
-                display.src = "./BookReturn.jsp";
+                display.src = "./BorrowAndReturn.jsp";
             }
         }
     </script>
@@ -35,11 +35,11 @@
             <ul style="float: left;list-style: none;">
                 <li onclick="Jump(1)">用户管理</li>
                 <li onclick="Jump(2)">图书管理</li>
-                <li onclick="Jump(3)">图书归还</li>
+                <li onclick="Jump(3)">图书借阅</li>
             </ul>
         </div>
         <div>
-            <iframe id="display" src="./BookReturn.jsp" style="float: right;margin-right: 10px;width: 80%;height: 500px;overflow-scrolling: auto;" >
+            <iframe id="display" src="./BorrowAndReturn.jsp" style="float: right;margin-right: 10px;width: 80%;height: 500px;overflow-scrolling: auto;" >
                 <p>您的浏览器不支持IE!</p>
             </iframe>
         </div>

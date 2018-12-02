@@ -1,6 +1,7 @@
 package Database;
 
 import POJO.Book;
+import POJO.User;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -10,13 +11,13 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.smartcardio.Card;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class BookDB {
@@ -135,6 +136,32 @@ public class BookDB {
         }
     }
 
+    public Book SearchBook(String Index){
+        Book book = null;
+        try{
+            con = db.getConnection();
+            String sql = "select * from Book where `Index`=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, Index);
+            rs = pstmt.executeQuery();
+            rs.next();
+            book = new Book();
+            book.setIndex(rs.getString("Index"));
+            book.setDigest(rs.getString("Digest"));
+            book.setAuthor(rs.getString("Author"));
+            book.setISBN(rs.getString("ISBN"));
+            book.setAmount(rs.getInt("Amount"));
+            book.setPrice(rs.getDouble("Price"));
+            book.setBookName(rs.getString("BookName"));
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally {
+            return book;
+        }
+    }
+
     public boolean DeleteBook(String ISBN, String cover){
         boolean flag = true;
         try{
@@ -230,5 +257,87 @@ public class BookDB {
             return null;
         }
         return book;
+    }
+
+    public int ReturnBook(String Index, int CardNum){
+        int flag = 0;
+        try{
+            con = db.getConnection();
+            String sql = "select min(BorrowTime) from BorrowAndReturn where `Index`=? and CardNum=? and ReturnTime is null";
+            java.util.Date date = new java.util.Date();
+            SimpleDateFormat  df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String  d = df.format(date);
+            pstmt = con.prepareStatement(sql);
+            //pstmt.setTimestamp(1, Timestamp.valueOf(d));
+            pstmt.setString(1, Index);
+            pstmt.setInt(2, CardNum);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                Timestamp borrowTime = rs.getTimestamp(1);
+                Timestamp returnTime = Timestamp.valueOf(d);
+                String earliestTime = borrowTime.toString();
+                long time = (returnTime.getTime() - borrowTime.getTime()) / 1000 / 60 / 60 /24;
+                time -= 30;
+                if(time > 0){
+                    UserDB userDB = new UserDB();
+                    double pay = time * 0.1;
+                    if(! userDB.Pay(CardNum, pay)){
+                        db.free(rs, pstmt, con);
+                        System.out.println("2222222222222222");
+                        flag = 2;
+                    }
+                }
+                if(flag != 2){
+                    sql = "update BorrowAndReturn set ReturnTime=? where BorrowTime=? and CardNum=? and `Index`=?";
+                    pstmt = con.prepareStatement(sql);
+                    pstmt.setTimestamp(1, Timestamp.valueOf(d));
+                    pstmt.setTimestamp(2, Timestamp.valueOf(earliestTime));
+                    pstmt.setInt(3, CardNum);
+                    pstmt.setString(4, Index);
+                    if(pstmt.executeUpdate() == 1){
+                        flag = 1;
+                    }
+                }
+            }
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally{
+            return flag;
+        }
+    }
+
+    public int BorrowBook(String Index, int CardNum){
+        int flag = 0;
+        System.out.println(CardNum);
+        User user = (new UserDB()).SearchUser(CardNum);
+        if(user == null){
+            flag = 2;
+        }
+        else if(user.getMoney() < 30){
+            flag = 3;
+        }
+        else {
+            try {
+                con = db.getConnection();
+                String sql = "insert into BorrowAndReturn(`Index`, BorrowTime, CardNum) values (?, ?, ?)";
+                java.util.Date date = new java.util.Date();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String d = df.format(date);
+                pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, Index);
+                pstmt.setTimestamp(2, Timestamp.valueOf(d));
+                pstmt.setInt(3, CardNum);
+                if (pstmt.executeUpdate() == 1) {
+                    flag = 1;
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            } finally {
+                return flag;
+            }
+        }
+        return flag;
     }
 }

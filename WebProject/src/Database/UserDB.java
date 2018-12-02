@@ -4,6 +4,7 @@ import POJO.User;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.smartcardio.Card;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,6 +44,32 @@ public class UserDB {
         finally {
             db.free(rs, pstmt, con);
             return cardNum;
+        }
+    }
+
+    public User SearchUser(int CardNum){
+        User user = null;
+        try{
+            con = db.getConnection();
+            String sql = "select * from User where CardNum=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, CardNum);
+            rs = pstmt.executeQuery();
+            if(rs.next()){
+                user = new User();
+                user.setCardNum(rs.getInt("CardNum"));
+                user.setPwd(rs.getString("Pwd"));
+                user.setName(rs.getString("Name"));
+                user.setIdentification(rs.getString("Identification"));
+                user.setTele(rs.getString("Tele"));
+                user.setMoney(rs.getDouble("Money"));
+            }
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally {
+            return user;
         }
     }
 
@@ -113,6 +140,32 @@ public class UserDB {
         finally {
             db.free(rs, pstmt, con);
             return userList;
+        }
+    }
+
+    public boolean Pay(int CardNum, double pay){
+        boolean flag = false;
+        User user = SearchUser(CardNum);
+        double balance = user.getMoney() - pay;
+        if(balance < 0){
+            return false;
+        }
+        try{
+            con = db.getConnection();
+            String sql = "update User set Money=? where CardNum=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setDouble(1, balance);
+            pstmt.setInt(2, CardNum);
+            if(pstmt.executeUpdate() == 1){
+                flag = true;
+            }
+        }
+        catch (SQLException se){
+            se.printStackTrace();
+        }
+        finally {
+            db.free(rs, pstmt, con);
+            return flag;
         }
     }
 }

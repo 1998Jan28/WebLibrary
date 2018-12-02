@@ -115,6 +115,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>BorrowAndReturnServlet</servlet-name>
+        <servlet-class>Servlet.BorrowAndReturnServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BorrowAndReturnServlet</servlet-name>
+        <url-pattern>/BorrowAndReturn</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>DisplayBookServlet</servlet-name>
         <servlet-class>Servlet.DisplayBookServlet</servlet-class>
     </servlet>

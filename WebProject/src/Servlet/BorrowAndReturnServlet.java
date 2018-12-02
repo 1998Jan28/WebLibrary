@@ -1,8 +1,7 @@
 package Servlet;
 
-import Service.BookReturnService;
-import org.json.JSONArray;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+import Service.BorrowAndReturnService;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,19 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "BookReturnServlet")
-public class BookReturnServlet extends HttpServlet {
+@WebServlet(name = "BorrowAndReturnServlet")
+public class BorrowAndReturnServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        BookReturnService brs = new BookReturnService();
-        String cardNum = request.getParameter("SearchCard");
-        response.setHeader("content-type", "text/html;charset=UTF-8");
+        BorrowAndReturnService bars = new BorrowAndReturnService();
+        int flag = 0;
+        JSONObject result = null;
+        if(request.getParameter("Operation").equals("1")){
+            flag = bars.ReturnBook(request);
+        }
+        else{
+            flag = bars.BorrowBook(request);
+        }
+        System.out.println(flag);
+        result = new JSONObject();
+        result.put("flag", flag);
         PrintWriter out = response.getWriter();
-        System.out.println( brs.GetRecord(cardNum).toString());
-        out.write( brs.GetRecord(cardNum).toString());
+        out.print(result);
         out.close();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+
     }
 }
