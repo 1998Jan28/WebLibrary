@@ -8,6 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
     <title>管理员</title>
     <script>
         function Jump(index) {
@@ -19,31 +28,76 @@
                 display.src = "./bookManage.jsp";
             }
             else if(index == 3){
-                display.src = "./BorrowAndReturn.jsp";
+                display.src = "./BookReturn.jsp";
             }
         }
+
+        $(document).ready(function(){
+            $("#usermanage").click(function(){
+                $("#usermanage").addClass("active");
+                $("#bookmanage").removeClass("active");
+                $("#bookret").removeClass("active");
+            });
+            $("#bookmanage").click(function(){
+                $("#usermanage").removeClass("active");
+                $("#bookmanage").addClass("active");
+                $("#bookret").removeClass("active");
+            });
+            $("#bookret").click(function(){
+                $("#usermanage").removeClass("active");
+                $("#bookmanage").removeClass("active");
+                $("#bookret").addClass("active");
+            });
+        });
     </script>
+    <style>
+        #left {
+            position:absolute;
+            left: 10px;
+            top: 20px;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        #left a {
+
+        }
+        #right {
+            position:absolute;
+            left: 200px;
+            top:15px;
+            width: 1200px ;
+            height: 550px;
+        }
+        #right iframe {
+            width: 1200px ;
+            height: 550px;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <div style="margin-top: 10px;">
-        <a href="./index.jsp" style="float: right;">注销</a>
-        <label style="float: right;">whut，您好！</label>
+<%@include file="head.jsp" %>
+<div style="display: inline-block;margin-top:-20px;z-index: 9999;position: absolute;margin-left: 1350px;">
+    <span style="color: white">您好!<span id="username">whut </span>&nbsp;|&nbsp;</span>
+    <a href="./index.jsp" style="color: white;text-decoration: none;">注销</a>
+</div>
+<div style="position: relative;width: 1500px;height: 550px;">
+    <div id="left">
+        <a href="./userManage.jsp" target="display" id="usermanage" class="list-group-item active">用户管理</a>
+        <a href="./bookManage.jsp" target="display" id="bookmanage" class="list-group-item">图书管理</a>
+        <a href="./BorrowAndReturn.jsp" target="display" id="bookret" class="list-group-item">图书归还</a>
+        <%--<ul class="list-group">--%>
+            <%--<li class="list-group-item" id="usermanage" onclick="Jump(1)">用户管理</li>--%>
+            <%--<li class="list-group-item" id="bookmanage" onclick="Jump(2)">图书管理</li>--%>
+            <%--<li class="list-group-item" id="bookret" onclick="Jump(3)">图书归还</li>--%>
+        <%--</ul>--%>
     </div>
-    <div style="margin-top: 30px;">
-        <div>
-            <ul style="float: left;list-style: none;">
-                <li onclick="Jump(1)">用户管理</li>
-                <li onclick="Jump(2)">图书管理</li>
-                <li onclick="Jump(3)">图书借阅</li>
-            </ul>
-        </div>
-        <div>
-            <iframe id="display" src="./BorrowAndReturn.jsp" style="float: right;margin-right: 10px;width: 80%;height: 500px;overflow-scrolling: auto;" >
-                <p>您的浏览器不支持IE!</p>
-            </iframe>
-        </div>
+    <div id="right">
+        <iframe name="display" src="userManage.jsp" frameborder="no" scrolling="no" >
+
+        </iframe>
     </div>
 </div>
+<%@include file="footer.jsp"%>
 </body>
 </html>
