@@ -8,10 +8,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>用户管理</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"
             integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
             crossorigin="anonymous"></script>
+    <title>用户管理</title>
 
     <script>
 
@@ -42,6 +48,9 @@
             modifyUser.style.display = "none";
             modifyBtn.style.display = "none";
             addBtn.style.display = "block";
+
+            $("#nav_adduser").addClass("active");
+            $("#nav_showuser").removeClass("active");
         }
 
         function ShowMain() {
@@ -52,6 +61,9 @@
             addUser.style.display = "none";
             modifyUser.style.display = "none";
             modifyBtn.style.display = "none";
+
+            $("#nav_showuser").addClass("active");
+            $("#nav_adduser").removeClass("active");
         }
 
         function ShowModifyUser(num) {
@@ -77,7 +89,7 @@
             var searchText = search.val();
             var content ="";
             var num=0;
-            content+="<caption>用户信息表</caption><tr> <th>卡号</th> <th>姓名</th> <th>身份证号</th> <th>电话号码</th> <th>余额</th> <th>密码</th></tr>";
+            content+="<table class='table table-hover'><caption>用户信息表</caption><tr> <th>卡号</th> <th>姓名</th> <th>身份证号</th> <th>电话号码</th> <th>余额</th> <th>密码</th><th>修改信息</th></tr>";
             $.each(users,function(id,item){
                 if(select == 1 || item.CardNum.indexOf(searchText)!=-1 || item.Name.indexOf(searchText)!=-1 || item.Identification.indexOf(searchText) != -1){
                     content+="<tr>";
@@ -87,12 +99,12 @@
                     content+="<td id='Tele"+num+"'>"+item.Tele+"</td>";
                     content+="<td>"+item.Money+"</td>";
                     content+="<td id='Pwd"+num+"'>"+item.Pwd+"</td>";
-                    content+="<td style='border: 0px'><input type='submit' value='修改' onclick='ShowModifyUser("+num+")'></td>";
-                    content+="<td style='border: 0px'><input type='submit' value='删除' onclick='DeleteUser("+num+")'></td>";
+                    content+="<td><input type='submit' class='btn btn-warning' value='修改信息' onclick='ShowModifyUser("+num+")'></td>";
                     content+="</tr>";
                     num++;
                 }
             })
+            content+="</table>";
             if(num==0){
                 $("#userList").html(initip);
             }else{
@@ -156,58 +168,59 @@
             })
         })
     </script>
+    <style>
+
+    </style>
 </head>
 <body>
 <div>
     <div>
-        <span>admin</span>
-        <span>,您好</span>
+        <ul class="nav nav-tabs">
+            <li id="nav_showuser" style="cursor: pointer;" class="active" onclick="ShowMain()"><a>用户列表</a></li>
+            <li id="nav_adduser" style="cursor: pointer;" onclick="ShowAddUser()"><a>增加用户</a></li>
+        </ul>
     </div>
-    <div>
-        <div>
+    <div style="margin-top: 3px;">
+        <div id="main">
             <div>
-                <ul style="list-style: none;float: left">
-                    <li onclick="ShowMain()">用户列表</li>
-                    <li onclick="ShowAddUser()">增加用户</li>
-                </ul>
+                <input class="form-control" style="display: inline-block;width: 200px;" id="search" placeholder="请输入卡号" type="text" onkeyup="showUsers(0)">
+                <button class="btn btn-default" onclick="showUsers(0)">搜索</button>
             </div>
-            <div style="float: left;margin-left: 20px;">
-                <div id="main">
-                    <div>
-                        <input id="search" type="text" onkeyup="showUsers(0)">
-                        <button onclick="showUsers(0)">搜索</button>
-                    </div>
-                    <div id="userList">
+            <div id="userList">
 
-                    </div>
-                </div>
-                <div id="addUser" style="display: none;">
-                    <form>
-                        <div id="modifyUser" style="display: none">
-                            卡号<input id="cardNum" type="text" readonly="readonly">
-                        </div>
-                        <div>
-                            姓名<input id="userName" type="text">
-                        </div>
-                        <div>
-                            身份证号<input id="identification" type="text">
-                        </div>
-                        <div>
-                            电话号码<input id="tele" type="text">
-                        </div>
-                        <div>
-                            密码<input id="pwd" type="password">
-                        </div>
-                        <div>
-                            确认密码<input id="confirmPwd" type="password">
-                        </div>
-                        <div>
-                            <input type="button" value="提交" id="addBtn">
-                            <input type="button" value="提交" id="modifyBtn" style="display: none">
-                        </div>
-                    </form>
-                </div>
             </div>
+        </div>
+        <div id="addUser" style="display: none;">
+            <form  role="form">
+                <div  id="modifyUser" class="form-group">
+                    <label for="cardNum">卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
+                    <input type="text" readonly="readonly" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="cardNum" />
+                </div>
+                <div class="form-group">
+                    <label for="userName">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+                    <input type="text" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="userName" placeholder="请输入姓名" />
+                </div>
+                <div class="form-group">
+                    <label for="identification">身份证号</label>
+                    <input type="text" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="identification" placeholder="请输入身份证号" />
+                </div>
+                <div class="form-group">
+                    <label for="tele">电话号码</label>
+                    <input type="text" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="tele" placeholder="请输入电话号码" />
+                </div>
+                <div class="form-group">
+                    <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                    <input type="password" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="password" placeholder="请输入密码" />
+                </div>
+                <div class="form-group">
+                    <label for="confirmPwd">确认密码</label>
+                    <input type="password" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="confirmPwd" placeholder="请确认密码" />
+                </div>
+                <div>
+                    <input type="button" value="提&nbsp;&nbsp;&nbsp;&nbsp;交" class="btn btn-success" style="margin-left: 150px;width: 100px;" id="addBtn">
+                    <input type="button" value="提&nbsp;&nbsp;&nbsp;&nbsp;交"class="btn btn-success" style="margin-left: 150px;width: 100px;" id="modifyBtn" style="display: none">
+                </div>
+            </form>
         </div>
     </div>
 </div>

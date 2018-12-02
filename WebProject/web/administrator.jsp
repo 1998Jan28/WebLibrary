@@ -81,7 +81,7 @@
     <span style="color: white">您好!<span id="username">whut </span>&nbsp;|&nbsp;</span>
     <a href="./index.jsp" style="color: white;text-decoration: none;">注销</a>
 </div>
-<div style="position: relative;width: 1500px;height: 550px;">
+<div style="position: relative;width: 1500px;height: 600px;">
     <div id="left">
         <a href="./userManage.jsp" target="display" id="usermanage" class="list-group-item active">用户管理</a>
         <a href="./bookManage.jsp" target="display" id="bookmanage" class="list-group-item">图书管理</a>
@@ -93,7 +93,7 @@
         <%--</ul>--%>
     </div>
     <div id="right">
-        <iframe name="display" src="userManage.jsp" frameborder="no" scrolling="no" >
+        <iframe name="display" src="userManage.jsp" frameborder="no" scrolling="yes" >
 
         </iframe>
     </div>
