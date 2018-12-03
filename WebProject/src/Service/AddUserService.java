@@ -16,7 +16,7 @@ public class AddUserService {
         user.setName(request.getParameter("Name"));
         user.setIdentification(request.getParameter("Identification"));
         user.setTele(request.getParameter("Tele"));
-        user.setMoney(0.0);
+        user.setMoney(Double.parseDouble(request.getParameter("Money")));
         return db.AddUser(user);
     }
 }

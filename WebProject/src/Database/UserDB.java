@@ -26,7 +26,7 @@ public class UserDB {
             pstmt.setString(2, user.getName());
             pstmt.setString(3, user.getIdentification());
             pstmt.setString(4, user.getTele());
-            pstmt.setDouble(5, 0);
+            pstmt.setDouble(5, user.getMoney());
             if(pstmt.executeUpdate() == 1){
                 pstmt = con.prepareStatement("select * from User where Identification=?");
                 pstmt.setString(1, user.getIdentification());
@@ -77,13 +77,14 @@ public class UserDB {
         boolean flag = false;
         try{
             con = db.getConnection();
-            String sql = "update User set Pwd=?, Name=?, Identification=?, Tele=? where CardNum=?";
+            String sql = "update User set Pwd=?, Name=?, Identification=?, Tele=?, Money=? where CardNum=?";
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, user.getPwd());
             pstmt.setString(2, user.getName());
             pstmt.setString(3, user.getIdentification());
             pstmt.setString(4, user.getTele());
-            pstmt.setInt(5, user.getCardNum());
+            pstmt.setDouble(5, user.getMoney());
+            pstmt.setInt(6, user.getCardNum());
             flag = pstmt.executeUpdate() == 1? true : false;
         }
         catch (SQLException se){
@@ -99,7 +100,7 @@ public class UserDB {
         boolean flag = false;
         try {
             con = db.getConnection();
-            String sql = "Delete from User where CardNum=?";
+            String sql = "Delete from User where CardNum=? cascade";
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, cardNum);
             if(pstmt.executeUpdate() == 1){

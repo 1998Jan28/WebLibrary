@@ -18,6 +18,7 @@ public class ModifyUserService {
         user.setName(request.getParameter("Name"));
         user.setPwd(request.getParameter("Pwd"));
         user.setCardNum(Integer.parseInt(request.getParameter("CardNum")));
+        user.setMoney(Double.parseDouble(request.getParameter("Money")));
         return db.ModifyUser(user);
     }
 }

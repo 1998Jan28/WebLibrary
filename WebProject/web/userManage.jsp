@@ -81,6 +81,7 @@
             $("#identification").attr("value", $("#Identification"+num).text());
             $("#tele").attr("value", $("#Tele"+num).text());
             $("#confirmPwd").attr("value", $("#Pwd"+num).text());
+            $("#money").attr("value", $("#Money"+num).text())
         }
 
         function showUsers(select){
@@ -97,7 +98,7 @@
                     content+="<td id='Name"+num+"'>"+item.Name+"</td>";
                     content+="<td id='Identification"+num+"'>"+item.Identification+"</td>";
                     content+="<td id='Tele"+num+"'>"+item.Tele+"</td>";
-                    content+="<td>"+item.Money+"</td>";
+                    content+="<td id='Money"+num+"'>"+item.Money+"</td>";
                     content+="<td id='Pwd"+num+"'>"+item.Pwd+"</td>";
                     content+="<td><input type='submit' class='btn btn-warning' value='修改信息' onclick='ShowModifyUser("+num+")'></td>";
                     content+="</tr>";
@@ -122,12 +123,13 @@
 
             $("#addBtn").click(function () {
                 var paras = {
-                    "Pwd" : $("#pwd").val(),
+                    "Pwd" : $("#password").val(),
                     "Name" : $("#userName").val(),
                     "Identification" : $("#identification").val(),
-                    "Tele" : $("#tele").val()
+                    "Tele" : $("#tele").val(),
+                    "Money" : $("#money").val()
                 };
-                if($("#pwd").val() == $("#confirmPwd").val()){
+                if($("#password").val() == $("#confirmPwd").val()){
                     $.post("/AddUser", paras, function (result) {
                         var cardNum = result["CardNum"];
                         if(cardNum == -1){
@@ -146,12 +148,15 @@
             $("#modifyBtn").click(function () {
                 var paras = {
                     "CardNum": $("#cardNum").val(),
-                    "Pwd" : $("#pwd").val(),
+                    "Pwd" : $("#password").val(),
                     "Name" : $("#userName").val(),
                     "Identification" : $("#identification").val(),
-                    "Tele" : $("#tele").val()
+                    "Tele" : $("#tele").val(),
+                    "Money" : $("#money").val()
                 };
-                if($("#pwd").val() == $("#confirmPwd").val()){
+                console.log($("#password").val())
+                console.log($("#confirmPwd").val())
+                if($("#password").val() == $("#confirmPwd").val()){
                     $.post("/ModifyUser", paras, function (result) {
                         if(!result["flag"]){
                             alert("修改失败！");
@@ -215,6 +220,10 @@
                 <div class="form-group">
                     <label for="confirmPwd">确认密码</label>
                     <input type="password" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="confirmPwd" placeholder="请确认密码" />
+                </div>
+                <div>
+                    <label>余&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</label>
+                    <input type="text" class="form-control" style="margin-left:5px;display: inline-block;width: 300px;" id="money" placeholder="请输入余额"/>
                 </div>
                 <div>
                     <input type="button" value="提&nbsp;&nbsp;&nbsp;&nbsp;交" class="btn btn-success" style="margin-left: 150px;width: 100px;" id="addBtn">
