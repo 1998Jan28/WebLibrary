@@ -23,6 +23,10 @@
         var borrowBooks;
         var books;
         $(document).ready(function () {
+            if(sessionStorage.getItem("username")=="" || sessionStorage.getItem("username")=="null" || sessionStorage.getItem("username")== undefined){
+                alert("您还没有登陆！")
+                window.location.href = "./index.jsp";
+            }
             $.ajaxSettings.async = false;
             $.post("/UserSearchBooks", function (data) {
                 books = data;

@@ -37,15 +37,19 @@
 
               //用户名和密码是否正确
               $.post("/Login",{"cardNum":username,"password":password},function(data){
-                  console.log(data);
                     if(data.flag=="账号不存在" || data.flag=="密码错误") {
                         document.getElementById("notify").innerHTML = data.flag;
                     }else{
-                        sessionStorage.setItem('username',username);
-                        if(username.length>=8)
+                        sessionStorage.setItem('cardnum',username);
+                        sessionStorage.setItem('username',data.username);
+                        if(username.length>=8){
+                            sessionStorage.setItem('money',data.money);
+
                             window.location.href="/user.jsp";
-                        else
+                        }
+                        else{
                             window.location.href="/administrator.jsp";
+                        }
                     }
               },"json")
 

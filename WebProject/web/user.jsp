@@ -74,6 +74,12 @@
         }
 
         $(document).ready(function(){
+            if(sessionStorage.getItem("username")=="" || sessionStorage.getItem("username")=="null" || sessionStorage.getItem("username")== undefined){
+                alert("您还没有登陆！")
+                window.location.href = "./index.jsp";
+            }
+            console.log(sessionStorage.getItem("money"));
+            $("#username").html(sessionStorage.getItem("username"));
             $.ajaxSettings.async = false;
             $.post("/UserSearchBooks",paras,function(obj){
                 booksInfo=obj;
@@ -83,6 +89,10 @@
             $.ajaxSettings.async = true;
             showBooks();
         });
+
+        function quit(){
+            sessionStorage.clear();
+        }
 
         function jq_get(){
             //$.get("/demo","username=zhangsan&password=123",function(obj){})
@@ -200,12 +210,12 @@
     <%@include file="head.jsp" %>
     <div style="line-height:70px;display: inline-block;margin-top:-70px;z-index: 9999;position: absolute;height:70px;left: 700px;">
         <nav class="link">
-            <span><a href="user.jsp" class="active">首页</a></span><span><a href="userRecord.jsp">借书记录</a></span><span><a href="userPay.jsp">账户充值</a></span>
+            <span><a href="user.jsp" class="active">首页</a></span><span><a href="userRecord.jsp">借书记录</a></span><span><a href="userPay.jsp">余额查询</a></span>
         </nav>
     </div>
     <div style="display: inline-block;margin-top:-20px;z-index: 9999;position: absolute;margin-left: 1350px;">
         <span style="color: white">您好!<span id="username">whut </span>&nbsp;|&nbsp;</span>
-        <a href="./index.jsp" style="color: white;text-decoration: none;">注销</a>
+        <a href="./index.jsp" style="color: white;text-decoration: none;" onclick="quit();">注销</a>
     </div>
     <div style="text-align: center;margin-top: 100px;">
         <form>

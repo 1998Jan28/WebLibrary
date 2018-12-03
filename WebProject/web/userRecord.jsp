@@ -19,7 +19,12 @@
             crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
-            var cardNum=sessionStorage.getItem("username");
+            if(sessionStorage.getItem("username")=="" || sessionStorage.getItem("username")=="null" || sessionStorage.getItem("username")== undefined){
+                alert("您还没有登陆！")
+                window.location.href = "./index.jsp";
+            }
+            var cardNum=sessionStorage.getItem("cardnum");
+            $("#username").html(sessionStorage.getItem("username"));
             $.post("/BookReturn",{"SearchCard":cardNum},function(data){
                 console.log(data);
                 var content="<center><table class='table table-hover'><tr><td>#</td><td>书名</td><td>索引号</td><td>借阅时间</td></tr>";
@@ -37,6 +42,10 @@
                 $("#showRecords").html(content);
             },"json")
         });
+
+        function quit(){
+            sessionStorage.clear();
+        }
     </script>
     <style>
         .link{
@@ -86,12 +95,12 @@
 <%@include file="head.jsp" %>
 <div style="line-height:70px;display: inline-block;margin-top:-70px;z-index: 9999;position: absolute;height:70px;left: 700px;">
     <nav class="link">
-        <span><a href="user.jsp">首页</a></span><span><a href="userRecord.jsp" class="active">借书记录</a></span><span><a href="userPay.jsp">账户充值</a></span>
+        <span><a href="user.jsp">首页</a></span><span><a href="userRecord.jsp" class="active">借书记录</a></span><span><a href="userPay.jsp">余额查询</a></span>
     </nav>
 </div>
 <div style="display: inline-block;margin-top:-20px;z-index: 9999;position: absolute;margin-left: 1350px;">
     <span style="color: white">您好!<span id="username">whut </span>&nbsp;|&nbsp;</span>
-    <a href="./index.jsp" style="color: white;text-decoration: none;">注销</a>
+    <a href="./index.jsp" style="color: white;text-decoration: none;" onclick="quit();">注销</a>
 </div>
 <div id="showRecords">
 

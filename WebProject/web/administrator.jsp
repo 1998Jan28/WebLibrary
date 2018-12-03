@@ -31,8 +31,16 @@
                 display.src = "./BookReturn.jsp";
             }
         }
+        function quit(){
+            sessionStorage.clear();
+        }
 
         $(document).ready(function(){
+            if(sessionStorage.getItem("username")=="" || sessionStorage.getItem("username")=="null" || sessionStorage.getItem("username")== undefined){
+                alert("您还没有登陆！")
+                window.location.href = "./index.jsp";
+            }
+            $("#username").html(sessionStorage.getItem("username"));
             $("#usermanage").click(function(){
                 $("#usermanage").addClass("active");
                 $("#bookmanage").removeClass("active");
@@ -79,7 +87,7 @@
 <%@include file="head.jsp" %>
 <div style="display: inline-block;margin-top:-20px;z-index: 9999;position: absolute;margin-left: 1350px;">
     <span style="color: white">您好!<span id="username">whut </span>&nbsp;|&nbsp;</span>
-    <a href="./index.jsp" style="color: white;text-decoration: none;">注销</a>
+    <a href="./index.jsp" style="color: white;text-decoration: none;" onclick="quit();">注销</a>
 </div>
 <div style="position: relative;width: 1500px;height: 600px;">
     <div id="left">

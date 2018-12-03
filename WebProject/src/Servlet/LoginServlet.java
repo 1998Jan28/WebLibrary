@@ -22,11 +22,13 @@ public class LoginServlet extends HttpServlet {
         String cardNum=request.getParameter("cardNum");
         String password=request.getParameter("password");
         LoginService login=new LoginService();
-        String message=login.Login(cardNum,password);
-        System.out.println(message);
-
+        JSONObject loginobj=login.Login(cardNum,password);
         JSONObject obj = new JSONObject();
-        obj.put("flag",message);
+        obj.put("flag",loginobj.getString("message"));
+        obj.put("username",loginobj.getString("username"));
+        if(loginobj.getString("message").equals("登陆成功") && cardNum.length()>=8){
+            obj.put("money",loginobj.getString("money"));
+        }
         PrintWriter out=response.getWriter();
         out.write(obj.toString());
 //        if(message.equals("登陆成功"))

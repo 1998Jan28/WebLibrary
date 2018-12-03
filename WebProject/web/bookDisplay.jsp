@@ -14,6 +14,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            if(sessionStorage.getItem("username")=="" || sessionStorage.getItem("username")=="null" || sessionStorage.getItem("username")== undefined){
+                alert("您还没有登陆！")
+                window.location.href = "./index.jsp";
+            }
             var isbn=$("#isbn").text();console.log(isbn);
             var para={"isbn":isbn};
             var showimg="<img src='"+"./BookImg/"+isbn+".jpg' />"
